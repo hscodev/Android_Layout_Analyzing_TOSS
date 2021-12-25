@@ -1,7 +1,9 @@
 package dev.hsco.oops.presentation.util
 
+import android.graphics.Outline
 import android.graphics.drawable.TransitionDrawable
 import android.view.View
+import android.view.ViewOutlineProvider
 import androidx.databinding.BindingAdapter
 
 @BindingAdapter("visibilityIf")
@@ -33,5 +35,24 @@ fun View.runTransitionDrawable(transition: Boolean) {
         }else{
             reverseTransition(200)
         }
+    }
+}
+
+@BindingAdapter("topCornerRadiusDp")
+fun View.setTopCornerRound(radiusDp: Int) {
+    outlineProvider = object : ViewOutlineProvider() {
+        override fun getOutline(view: View, outline: Outline) {
+            outline.setRoundRect(0, 0, view.width, view.height + radiusDp, radiusDp.toFloat())
+        }
+    }
+    clipToOutline = true
+}
+
+@BindingAdapter(value = ["toggleRadiusAnimation", "toggleRadiusAnimationValue"], requireAll = true)
+fun View.toggleRadiusAnimation(toggleRadiusAnimation: Boolean, toggleRadiusAnimationValue: Int) {
+    if (toggleRadiusAnimation) {
+        expandRadiusAnimation(toggleRadiusAnimationValue)
+    } else {
+        radiusAnimation(toggleRadiusAnimationValue)
     }
 }

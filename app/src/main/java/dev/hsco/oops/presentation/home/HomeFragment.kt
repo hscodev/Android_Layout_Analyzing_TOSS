@@ -10,7 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import dev.hsco.oops.databinding.FragmentHomeBinding
 import dev.hsco.oops.presentation.main.MainViewModel
-import dev.hsco.oops.presentation.util.*
+import dev.hsco.oops.presentation.util.SearchLinearLayoutManager
+import dev.hsco.oops.presentation.util.dp
+import dev.hsco.oops.presentation.util.setVisibilityIf
 
 class HomeFragment : Fragment() {
 
@@ -18,7 +20,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
@@ -33,27 +35,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun initView() {
-        val layoutManager = SearchLinearLayoutManager(requireContext())
-        val adapter = HomeAdapter(viewLifecycleOwner)
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val targetPosition = adapter.getPosition(HomeDataItem.ViewType.ACCOUNT_BOOK)
-                if (targetPosition != -1) {
-                    val position = IntArray(2)
-                    binding.recyclerView.getLocationInWindow(position)
-                    val bottomPosition = binding.recyclerView.height + position[1] - binding.bottomAccountBookBg.height
-                    val stickyItemHeight = binding.bottomAccountBookBg.height
-                    viewModel.onStickyVisible(
-                        !layoutManager.isCompletelyVisible(targetPosition, bottomPosition, stickyItemHeight)
-                    )
-                } else {
-                    viewModel.onStickyVisible(true)
-                }
-            }
-        })
+        binding.recyclerView.apply {
+            adapter = HomeAdapter(viewLifecycleOwner)
+            layoutManager = SearchLinearLayoutManager(requireContext())
+            addOnScrollListener(getStickyControlScrollListener())
+        }
     }
 
     private fun bindViewModel() {
@@ -62,17 +48,39 @@ class HomeFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.stickyVisible.observe(viewLifecycleOwner) { visible ->
-            if (!visible) {
-                binding.bottomAccountBookBg.apply {
-                    layoutParams = (layoutParams as? ViewGroup.MarginLayoutParams)?.apply {
-                        marginStart = 16.dp
-                        marginEnd = 16.dp
-                    }
-                }
-            }
-
+            if (!visible) initBottomAccountBookBgMargin()
             binding.stickyContainer.setVisibilityIf(visible)
             mainViewModel.setBottomNavigationBgTransition(visible)
+        }
+    }
+
+    private fun initBottomAccountBookBgMargin() {
+        binding.bottomAccountBookBg.apply {
+            layoutParams = (layoutParams as? ViewGroup.MarginLayoutParams)?.apply {
+                marginStart = 16.dp
+                marginEnd = 16.dp
+            }
+        }
+    }
+
+    private fun getStickyControlScrollListener() = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val adapter = (recyclerView.adapter as? HomeAdapter)
+            val layoutManager = (recyclerView.layoutManager as? SearchLinearLayoutManager)
+            if (adapter == null || layoutManager == null) return
+
+            val targetPosition = adapter.getPosition(HomeDataItem.ViewType.ACCOUNT_BOOK)
+            if (targetPosition == -1) {
+                viewModel.onStickyVisible(true)
+            } else {
+                val position = IntArray(2)
+                binding.recyclerView.getLocationInWindow(position)
+                val bottomPosition = binding.recyclerView.height + position[1] - 55.dp
+                val stickyItemHeight = binding.bottomAccountBookBg.height
+                val stickyVisible = !layoutManager.isCompletelyVisible(targetPosition, bottomPosition, stickyItemHeight)
+                viewModel.onStickyVisible(stickyVisible)
+            }
         }
     }
 

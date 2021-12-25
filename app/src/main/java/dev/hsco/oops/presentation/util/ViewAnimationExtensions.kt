@@ -50,3 +50,31 @@ fun View.slideUpAnimation() {
     val animation = AnimationUtils.loadAnimation(context, R.anim.slide_up)
     startAnimation(animation)
 }
+
+fun View.radiusAnimation(radiusDp: Int) {
+    val animation = object : Animation() {
+        override fun applyTransformation(interpolatedTime: Float, t: Transformation?) {
+            val radius = radiusDp.dp - (radiusDp.dp * interpolatedTime)
+            setTopCornerRound(radius.toInt())
+        }
+    }.apply {
+        duration = 200
+        interpolator = AccelerateDecelerateInterpolator()
+    }
+
+    startAnimation(animation)
+}
+
+fun View.expandRadiusAnimation(radiusDp: Int) {
+    val animation = object : Animation() {
+        override fun applyTransformation(interpolatedTime: Float, t: Transformation?) {
+            val radius = (radiusDp.dp * interpolatedTime)
+            setTopCornerRound(radius.toInt())
+        }
+    }.apply {
+        duration = 200
+        interpolator = AccelerateDecelerateInterpolator()
+    }
+
+    startAnimation(animation)
+}
