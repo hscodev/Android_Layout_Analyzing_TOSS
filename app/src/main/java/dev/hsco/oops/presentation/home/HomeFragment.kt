@@ -10,8 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import dev.hsco.oops.databinding.FragmentHomeBinding
 import dev.hsco.oops.presentation.main.MainViewModel
-import dev.hsco.oops.presentation.util.layout_manager.SearchLinearLayoutManager
 import dev.hsco.oops.presentation.util.dp
+import dev.hsco.oops.presentation.util.layout_manager.SearchLinearLayoutManager
 import dev.hsco.oops.presentation.util.setVisibilityIf
 
 class HomeFragment : Fragment() {

@@ -21,7 +21,13 @@ class MainPagerAdapter(
     }
 
     override fun createFragment(position: Int): Fragment {
-        return Items.values()[position].fragment
+        return when (Items.values()[position]) {
+            Items.BENEFIT -> BenefitFragment()
+            Items.HOME -> HomeFragment()
+            Items.REMITTANCE -> RemittanceFragment()
+            Items.STOCK -> StockFragment()
+            Items.FULL_MENU -> FullMenuFragment()
+        }
     }
 
     override fun getTabItem(position: Int): FixedTabLayout.TabItem {
@@ -31,14 +37,13 @@ class MainPagerAdapter(
     }
 
     enum class Items(
-        val fragment: Fragment,
         val menuTitle: String,
         @DrawableRes val menuIcon: Int
     ) {
-        HOME(HomeFragment(), "홈", R.drawable.baseline_home_24),
-        BENEFIT(BenefitFragment(), "혜택", R.drawable.outline_yard_24),
-        REMITTANCE(RemittanceFragment(), "송금", R.drawable.baseline_local_atm_24),
-        STOCK(StockFragment(), "주식", R.drawable.baseline_show_chart_24),
-        FULL_MENU(FullMenuFragment(), "전체", R.drawable.baseline_menu_24)
+        HOME("홈", R.drawable.baseline_home_24),
+        BENEFIT("혜택", R.drawable.outline_yard_24),
+        REMITTANCE("송금", R.drawable.baseline_local_atm_24),
+        STOCK("주식", R.drawable.baseline_show_chart_24),
+        FULL_MENU("전체", R.drawable.baseline_menu_24)
     }
 }

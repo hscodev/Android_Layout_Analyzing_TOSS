@@ -28,7 +28,7 @@ class HomeViewModel : ViewModel() {
         setAccountBookDataItemBgExpand(visible)
     }
 
-    private fun setAccountBookDataItemBgExpand(expand: Boolean){
+    private fun setAccountBookDataItemBgExpand(expand: Boolean) {
         content.value
             ?.find { it is HomeDataItem.AccountBookDataItem }
             ?.let { it as HomeDataItem.AccountBookDataItem }
