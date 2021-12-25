@@ -4,7 +4,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.view.animation.Transformation
+import dev.hsco.oops.R
 
 fun View.collapseAnimation(horizontalMarginDp: Int) {
     val currentMargin = (layoutParams as? ViewGroup.MarginLayoutParams)?.marginStart ?: 0
@@ -19,7 +21,7 @@ fun View.collapseAnimation(horizontalMarginDp: Int) {
             }
         }
     }.apply {
-        duration = 200
+        duration = 150
         interpolator = AccelerateDecelerateInterpolator()
     }
 
@@ -37,9 +39,14 @@ fun View.expandAnimation(horizontalMarginDp: Int) {
             }
         }
     }.apply {
-        duration = 200
+        duration = 150
         interpolator = AccelerateDecelerateInterpolator()
     }
 
+    startAnimation(animation)
+}
+
+fun View.slideUpAnimation() {
+    val animation = AnimationUtils.loadAnimation(context, R.anim.slide_up)
     startAnimation(animation)
 }

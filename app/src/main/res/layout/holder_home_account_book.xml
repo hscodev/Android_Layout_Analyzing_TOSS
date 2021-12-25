@@ -5,6 +5,10 @@
     >
 
     <data>
+        <variable
+            name="viewData"
+            type="dev.hsco.oops.presentation.home.view_holder.AccountBookViewData"
+            />
 
     </data>
 
@@ -12,23 +16,25 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="12dp"
-        android:background="@drawable/bg_home_holder_card"
         >
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/bg_home_holder_card"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="#000000"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:toggleExpandAnimation="@{viewData.bgExpand}"
+            app:toggleExpandAnimationMargin="@{32}"
+            />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="24dp"
-            android:paddingTop="15dp"
+            android:paddingStart="40dp"
+            android:paddingTop="18dp"
             android:paddingEnd="36dp"
             android:text="소비"
             android:textColor="@color/black"

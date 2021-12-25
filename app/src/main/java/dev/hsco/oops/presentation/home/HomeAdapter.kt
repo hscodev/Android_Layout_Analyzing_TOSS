@@ -1,22 +1,26 @@
 package dev.hsco.oops.presentation.home
 
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import dev.hsco.oops.presentation.home.HomeDataItem.AccountBookDataItem
 import dev.hsco.oops.presentation.home.view_holder.AccountBookViewHolder
 import dev.hsco.oops.presentation.home.view_holder.AccountViewHolder
 import dev.hsco.oops.presentation.home.view_holder.AddAccountViewHolder
 import dev.hsco.oops.presentation.home.view_holder.CompetitionViewHolder
 import java.lang.RuntimeException
 
-class HomeAdapter : ListAdapter<HomeDataItem, RecyclerView.ViewHolder>(getDiffUtil()) {
+class HomeAdapter(
+    private val lifecycleOwner: LifecycleOwner
+): ListAdapter<HomeDataItem, RecyclerView.ViewHolder>(getDiffUtil()) {
 
     override fun getItemViewType(position: Int): Int {
         return currentList[position].viewType.ordinal
     }
 
-    fun getPosition(viewType: HomeDataItem.ViewType): Int{
+    fun getPosition(viewType: HomeDataItem.ViewType): Int {
         return currentList.indexOfFirst { it.viewType == viewType }
     }
 
@@ -24,14 +28,16 @@ class HomeAdapter : ListAdapter<HomeDataItem, RecyclerView.ViewHolder>(getDiffUt
         return when (viewType) {
             HomeDataItem.ViewType.COMPETITION.ordinal -> CompetitionViewHolder.from(parent)
             HomeDataItem.ViewType.ACCOUNT.ordinal -> AccountViewHolder.from(parent)
-            HomeDataItem.ViewType.ACCOUNT_BOOK.ordinal -> AccountBookViewHolder.from(parent)
+            HomeDataItem.ViewType.ACCOUNT_BOOK.ordinal -> AccountBookViewHolder.from(parent, lifecycleOwner)
             HomeDataItem.ViewType.ADD_ACCOUNT.ordinal -> AddAccountViewHolder.from(parent)
             else -> throw RuntimeException()
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
+        when (holder) {
+            is AccountBookViewHolder -> (getItem(position) as? AccountBookDataItem)?.also { holder.bind(it.viewData) }
+        }
     }
 
     companion object {

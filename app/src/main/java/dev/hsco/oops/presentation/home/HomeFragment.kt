@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import dev.hsco.oops.databinding.FragmentHomeBinding
-import dev.hsco.oops.presentation.util.SearchLinearLayoutManager
+import dev.hsco.oops.presentation.util.*
 
 class HomeFragment : Fragment() {
 
@@ -25,16 +25,16 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         bindViewModel()
+        observeViewModel()
         viewModel.load()
     }
 
     private fun initView() {
         val layoutManager = SearchLinearLayoutManager(requireContext())
-        val adapter = HomeAdapter()
+        val adapter = HomeAdapter(viewLifecycleOwner)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val targetPosition = adapter.getPosition(HomeDataItem.ViewType.ACCOUNT_BOOK)
@@ -44,10 +44,10 @@ class HomeFragment : Fragment() {
                     val bottomPosition = binding.recyclerView.height + position[1]
                     val stickyItemHeight = binding.bottomAccountBookBg.height
                     viewModel.onStickyVisible(
-                        layoutManager.isCompletelyVisible(targetPosition, bottomPosition, stickyItemHeight)
+                        !layoutManager.isCompletelyVisible(targetPosition, bottomPosition, stickyItemHeight)
                     )
                 } else {
-                    viewModel.onStickyVisible(false)
+                    viewModel.onStickyVisible(true)
                 }
             }
         })
@@ -55,6 +55,21 @@ class HomeFragment : Fragment() {
 
     private fun bindViewModel() {
         binding.viewModel = viewModel
+    }
+
+    private fun observeViewModel() {
+        viewModel.stickyVisible.observe(viewLifecycleOwner) { visible ->
+            if(!visible){
+                binding.bottomAccountBookBg.apply {
+                    layoutParams = (layoutParams as? ViewGroup.MarginLayoutParams)?.apply {
+                        marginStart = 16.dp
+                        marginEnd = 16.dp
+                    }
+                }
+            }
+
+            binding.stickyContainer.setVisibilityIf(visible)
+        }
     }
 
     companion object {
