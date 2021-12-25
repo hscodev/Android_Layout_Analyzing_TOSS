@@ -1,4 +1,4 @@
-package dev.hsco.oops.presentation.home
+package dev.hsco.oops.presentation.full_menu
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dev.hsco.oops.R
 
-class HomeFragment : Fragment() {
+class FullMenuFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     companion object {
-        fun newInstance() = HomeFragment()
+        fun newInstance() = FullMenuFragment()
     }
 }
