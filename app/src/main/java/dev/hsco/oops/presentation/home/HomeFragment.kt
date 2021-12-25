@@ -26,12 +26,12 @@ class HomeFragment : Fragment() {
         viewModel.load()
     }
 
-    private fun bindViewModel() {
-        binding.viewModel = viewModel
-    }
-
     private fun initView() {
         binding.recyclerView.adapter = HomeAdapter()
+    }
+
+    private fun bindViewModel() {
+        binding.viewModel = viewModel
     }
 
     companion object {

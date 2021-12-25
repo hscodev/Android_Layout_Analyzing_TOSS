@@ -25,19 +25,39 @@
             app:setData="@{viewModel.content}"
             />
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/bg_bottom_account_book"
-            android:gravity="start|center_vertical"
-            android:paddingStart="40dp"
-            android:paddingEnd="36dp"
-            android:text="소비"
-            android:textColor="@color/black"
-            android:textSize="16dp"
-            android:textStyle="bold"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            >
+
+            <ImageView
+                android:id="@+id/bottom_account_book_bg"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_bottom_account_book"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/bottom_account_book"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="start|center_vertical"
+                android:paddingStart="40dp"
+                android:paddingEnd="36dp"
+                android:text="소비"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
