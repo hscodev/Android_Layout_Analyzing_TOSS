@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
                 if (targetPosition != -1) {
                     val position = IntArray(2)
                     binding.recyclerView.getLocationInWindow(position)
-                    val bottomPosition = binding.recyclerView.height + position[1]
+                    val bottomPosition = binding.recyclerView.height + position[1] - binding.bottomAccountBookBg.height
                     val stickyItemHeight = binding.bottomAccountBookBg.height
                     viewModel.onStickyVisible(
                         !layoutManager.isCompletelyVisible(targetPosition, bottomPosition, stickyItemHeight)
