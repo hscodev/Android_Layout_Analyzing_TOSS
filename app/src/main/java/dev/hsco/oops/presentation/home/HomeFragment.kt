@@ -76,6 +76,13 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.stickyVisible.value?.also {
+            mainViewModel.setBottomNavigationBgTransition(it)
+        }
+    }
+
     companion object {
         fun newInstance() = HomeFragment()
     }

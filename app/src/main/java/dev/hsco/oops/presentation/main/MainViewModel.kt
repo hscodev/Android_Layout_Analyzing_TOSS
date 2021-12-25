@@ -3,6 +3,7 @@ package dev.hsco.oops.presentation.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dev.hsco.oops.presentation.util.setValueIfNew
 
 class MainViewModel : ViewModel() {
 
@@ -10,6 +11,6 @@ class MainViewModel : ViewModel() {
     val bottomNavigationBgTransition: LiveData<Boolean> = _bottomNavigationBgTransition
 
     fun setBottomNavigationBgTransition(transition: Boolean) {
-        _bottomNavigationBgTransition.value = transition
+        _bottomNavigationBgTransition.setValueIfNew(transition)
     }
 }
