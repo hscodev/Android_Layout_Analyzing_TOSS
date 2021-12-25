@@ -5,15 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import dev.hsco.oops.databinding.FragmentHomeBinding
+import dev.hsco.oops.presentation.main.MainViewModel
 import dev.hsco.oops.presentation.util.*
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -59,7 +62,7 @@ class HomeFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.stickyVisible.observe(viewLifecycleOwner) { visible ->
-            if(!visible){
+            if (!visible) {
                 binding.bottomAccountBookBg.apply {
                     layoutParams = (layoutParams as? ViewGroup.MarginLayoutParams)?.apply {
                         marginStart = 16.dp
@@ -69,6 +72,7 @@ class HomeFragment : Fragment() {
             }
 
             binding.stickyContainer.setVisibilityIf(visible)
+            mainViewModel.setBottomNavigationBgTransition(visible)
         }
     }
 

@@ -1,5 +1,6 @@
 package dev.hsco.oops.presentation.util
 
+import android.graphics.drawable.TransitionDrawable
 import android.view.View
 import androidx.databinding.BindingAdapter
 
@@ -21,5 +22,16 @@ fun View.toggleExpandAnimation(toggleExpandAnimation: Boolean, toggleExpandAnima
 fun View.slideUpAnimation(animate: Boolean) {
     if (animate) {
         slideUpAnimation()
+    }
+}
+
+@BindingAdapter("runTransitionDrawable")
+fun View.runTransitionDrawable(transition: Boolean) {
+    (background as? TransitionDrawable)?.run {
+        if(transition){
+            startTransition(200)
+        }else{
+            reverseTransition(200)
+        }
     }
 }

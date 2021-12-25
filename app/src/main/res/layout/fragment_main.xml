@@ -6,6 +6,11 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="dev.hsco.oops.presentation.main.MainViewModel"
+            />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,10 +32,12 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="55dp"
+            android:background="@drawable/transition_bottom_navigation"
             android:clipToPadding="false"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:runTransitionDrawable="@{viewModel.bottomNavigationBgTransition}"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
