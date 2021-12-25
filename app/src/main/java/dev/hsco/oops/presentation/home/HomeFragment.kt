@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -48,7 +49,10 @@ class HomeFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.stickyVisible.observe(viewLifecycleOwner) { visible ->
-            if (!visible) initBottomAccountBookBgMargin()
+            if (!visible) {
+                initBottomAccountBookBgMargin()
+                initBottomAccountBookDivider()
+            }
             binding.stickyContainer.setVisibilityIf(visible)
             mainViewModel.setBottomNavigationBgTransition(visible)
         }
@@ -59,6 +63,14 @@ class HomeFragment : Fragment() {
             layoutParams = (layoutParams as? ViewGroup.MarginLayoutParams)?.apply {
                 marginStart = 16.dp
                 marginEnd = 16.dp
+            }
+        }
+    }
+
+    private fun initBottomAccountBookDivider() {
+        binding.bottomAccountBookDivider.apply {
+            layoutParams = (layoutParams as? ViewGroup.MarginLayoutParams)?.apply {
+                setMargins(marginStart, marginTop, marginEnd, 0)
             }
         }
     }

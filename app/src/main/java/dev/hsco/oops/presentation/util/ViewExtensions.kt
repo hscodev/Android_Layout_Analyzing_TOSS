@@ -20,19 +20,19 @@ fun View.toggleExpandAnimation(toggleExpandAnimation: Boolean, toggleExpandAnima
     }
 }
 
-@BindingAdapter("slideUpAnimation")
-fun View.slideUpAnimation(animate: Boolean) {
+@BindingAdapter(value = ["slideUpAnimation", "slideUpAnimationDistance"], requireAll = true)
+fun View.slideUpAnimation(animate: Boolean, slideDistance: Int) {
     if (animate) {
-        slideUpAnimation()
+        slideUpAnimation(slideDistance)
     }
 }
 
 @BindingAdapter("runTransitionDrawable")
 fun View.runTransitionDrawable(transition: Boolean) {
     (background as? TransitionDrawable)?.run {
-        if(transition){
+        if (transition) {
             startTransition(200)
-        }else{
+        } else {
             reverseTransition(200)
         }
     }
