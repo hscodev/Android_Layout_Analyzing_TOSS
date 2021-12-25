@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import dev.hsco.oops.databinding.FragmentHomeBinding
+import dev.hsco.oops.presentation.util.SearchLinearLayoutManager
 
 class HomeFragment : Fragment() {
 
@@ -27,7 +29,28 @@ class HomeFragment : Fragment() {
     }
 
     private fun initView() {
-        binding.recyclerView.adapter = HomeAdapter()
+        val layoutManager = SearchLinearLayoutManager(requireContext())
+        val adapter = HomeAdapter()
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val targetPosition = adapter.getPosition(HomeDataItem.ViewType.ACCOUNT_BOOK)
+                if (targetPosition != -1) {
+                    val position = IntArray(2)
+                    binding.recyclerView.getLocationInWindow(position)
+                    val bottomPosition = binding.recyclerView.height + position[1]
+                    val stickyItemHeight = binding.bottomAccountBookBg.height
+                    viewModel.onStickyVisible(
+                        layoutManager.isCompletelyVisible(targetPosition, bottomPosition, stickyItemHeight)
+                    )
+                } else {
+                    viewModel.onStickyVisible(false)
+                }
+            }
+        })
     }
 
     private fun bindViewModel() {

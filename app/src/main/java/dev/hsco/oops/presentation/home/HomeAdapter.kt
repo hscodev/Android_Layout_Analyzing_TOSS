@@ -16,6 +16,10 @@ class HomeAdapter : ListAdapter<HomeDataItem, RecyclerView.ViewHolder>(getDiffUt
         return currentList[position].viewType.ordinal
     }
 
+    fun getPosition(viewType: HomeDataItem.ViewType): Int{
+        return currentList.indexOfFirst { it.viewType == viewType }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             HomeDataItem.ViewType.COMPETITION.ordinal -> CompetitionViewHolder.from(parent)
