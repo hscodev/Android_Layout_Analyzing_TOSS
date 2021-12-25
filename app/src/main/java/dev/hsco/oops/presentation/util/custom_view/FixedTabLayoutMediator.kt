@@ -21,7 +21,7 @@ class FixedTabLayoutMediator(
 
     private val onTabClickListener = object : FixedTabLayout.EventListener {
         override fun onItemSelected(position: Int) {
-            viewPager.currentItem = position
+            viewPager.setCurrentItem(position, false)
         }
     }
 

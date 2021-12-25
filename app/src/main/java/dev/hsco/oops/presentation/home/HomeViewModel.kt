@@ -25,9 +25,13 @@ class HomeViewModel : ViewModel() {
 
     fun onStickyVisible(visible: Boolean) {
         _stickyVisible.setValueIfNew(visible)
+        setAccountBookDataItemBgExpand(visible)
+    }
+
+    private fun setAccountBookDataItemBgExpand(expand: Boolean){
         content.value
             ?.find { it is HomeDataItem.AccountBookDataItem }
             ?.let { it as HomeDataItem.AccountBookDataItem }
-            ?.apply { viewData.setBgExpand(visible) }
+            ?.apply { viewData.setBgExpand(expand) }
     }
 }

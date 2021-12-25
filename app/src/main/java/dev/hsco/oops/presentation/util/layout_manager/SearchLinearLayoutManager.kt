@@ -1,4 +1,4 @@
-package dev.hsco.oops.presentation.util
+package dev.hsco.oops.presentation.util.layout_manager
 
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,9 +16,9 @@ class SearchLinearLayoutManager @JvmOverloads constructor(
             itemPosition > targetPosition -> true
             itemPosition < targetPosition -> false
             else -> getChildAt(itemPosition)?.let {
-                val position = IntArray(2)
-                it.getLocationInWindow(position)
-                position[1] < bottomPosition - stickyItemHeight
+                val targetLocation = IntArray(2)
+                it.getLocationInWindow(targetLocation)
+                targetLocation[1] < bottomPosition - stickyItemHeight
             } ?: false
         }
     }
