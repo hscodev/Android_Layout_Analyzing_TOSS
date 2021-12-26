@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomTabLayout">
+        <attr name="tabLayoutPaddingStart" format="dimension" />
+        <attr name="tabLayoutPaddingEnd" format="dimension" />
+    </declare-styleable>
+</resources>

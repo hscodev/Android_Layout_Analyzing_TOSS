@@ -22,16 +22,26 @@
             app:layout_constraintBottom_toTopOf="@id/tab_layout"
             />
 
-
-        <dev.hsco.oops.presentation.util.custom_view.FixedTabLayout
+        <dev.hsco.oops.presentation.util.custom_view.CustomTabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:clipToPadding="false"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            app:tabLayoutPaddingStart="16dp"
+            app:tabLayoutPaddingEnd="16dp"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
             app:layout_constraintBottom_toBottomOf="parent"
             />
+
+<!--        <dev.hsco.oops.presentation.util.custom_view.FixedTabLayout-->
+<!--            android:id="@+id/tab_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:clipToPadding="false"-->
+<!--            android:paddingStart="16dp"-->
+<!--            android:paddingEnd="16dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
