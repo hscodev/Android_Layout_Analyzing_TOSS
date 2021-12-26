@@ -1,17 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.home.HomeFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dev.hsco.oops.presentation.home.HomeViewModel"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
-        />
+        >
 
-</FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingBottom="55dp"
+            app:setData="@{viewModel.content}"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/stickyContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="55dp"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/shadow_reverse"
+                app:layout_constraintBottom_toTopOf="@id/bottom_account_book_bg"
+                app:layout_constraintTop_toTopOf="@id/bottom_account_book_bg"
+                />
+
+            <ImageView
+                android:id="@+id/bottom_account_book_bg"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_bottom_account_book"
+                app:layout_constraintBottom_toBottomOf="@id/bottom_account_book"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/bottom_account_book"
+                app:toggleExpandAnimation="@{viewModel.stickyVisible}"
+                app:toggleExpandAnimationMargin="@{32}"
+                />
+
+            <TextView
+                android:id="@+id/bottom_account_book"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:paddingStart="40dp"
+                android:paddingTop="18dp"
+                android:paddingEnd="36dp"
+                android:text="소비"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <View
+                android:id="@+id/bottom_account_book_divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:background="#E4E4E4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:slideUpAnimation="@{viewModel.stickyVisible}"
+                app:slideUpAnimationDistance="@{6}"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

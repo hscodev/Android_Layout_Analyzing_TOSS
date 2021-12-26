@@ -2,10 +2,14 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     >
 
     <data>
+
+        <variable
+            name="viewModel"
+            type="dev.hsco.oops.presentation.main.MainViewModel"
+            />
 
     </data>
 
@@ -19,18 +23,24 @@
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/tab_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:userInputEnabled="@{false}"
             />
 
         <dev.hsco.oops.presentation.util.custom_view.CustomTabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
+            android:background="@drawable/transition_bottom_navigation"
             app:tabLayoutPaddingStart="16dp"
             app:tabLayoutPaddingEnd="16dp"
             app:tabGravity="fill"
             app:tabMode="fixed"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:runTransitionDrawable="@{viewModel.bottomNavigationBgTransition}"
+            app:toggleRadiusAnimation="@{!viewModel.bottomNavigationBgTransition}"
+            app:toggleRadiusAnimationValue="@{25}"
             />
 
 <!--        <dev.hsco.oops.presentation.util.custom_view.FixedTabLayout-->

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
+import androidx.fragment.app.activityViewModels
 import dev.hsco.oops.databinding.FragmentMainBinding
 import dev.hsco.oops.databinding.FragmentMainBindingImpl
 import dev.hsco.oops.databinding.ItemMainBottomTabBinding
@@ -14,6 +15,7 @@ import dev.hsco.oops.databinding.ItemMainBottomTabBinding
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMainBindingImpl.inflate(inflater, container, false)
@@ -24,6 +26,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        bindViewModel()
     }
 
     private fun initView() {
@@ -38,6 +41,10 @@ class MainFragment : Fragment() {
         return ItemMainBottomTabBinding.inflate(layoutInflater).apply {
             this.tabItem = tabItem
         }.root
+    }
+
+    private fun bindViewModel() {
+        binding.viewModel = viewModel
     }
 
     companion object {
