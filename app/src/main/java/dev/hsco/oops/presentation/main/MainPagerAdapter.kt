@@ -9,12 +9,10 @@ import dev.hsco.oops.presentation.full_menu.FullMenuFragment
 import dev.hsco.oops.presentation.home.HomeFragment
 import dev.hsco.oops.presentation.remittance.RemittanceFragment
 import dev.hsco.oops.presentation.stock.StockFragment
-import dev.hsco.oops.presentation.util.custom_view.FixedTabLayout
 
 class MainPagerAdapter(
     fragment: Fragment
-) : FragmentStateAdapter(fragment),
-    FixedTabLayout.TabAdapter {
+) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int {
         return Items.values().size
@@ -30,10 +28,8 @@ class MainPagerAdapter(
         }
     }
 
-    override fun getTabItem(position: Int): FixedTabLayout.TabItem {
-        return Items.values()[position].let {
-            FixedTabLayout.TabItem(it.menuTitle, it.menuIcon)
-        }
+    fun getTabItem(position: Int): Items {
+        return Items.values()[position]
     }
 
     enum class Items(

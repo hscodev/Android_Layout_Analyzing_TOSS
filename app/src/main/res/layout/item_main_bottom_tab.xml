@@ -9,19 +9,13 @@
 
         <variable
             name="tabItem"
-            type="dev.hsco.oops.presentation.util.custom_view.FixedTabLayout.TabItem"
-            />
-
-        <variable
-            name="eventListener"
-            type="dev.hsco.oops.presentation.util.custom_view.FixedTabLayout.EventListener"
+            type="dev.hsco.oops.presentation.main.MainPagerAdapter.Items"
             />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/selectableItemBackgroundBorderless"
         >
 
         <ImageView
