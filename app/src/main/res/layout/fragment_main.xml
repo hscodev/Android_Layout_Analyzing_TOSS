@@ -33,25 +33,16 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:background="@drawable/transition_bottom_navigation"
-            app:tabLayoutPaddingStart="16dp"
-            app:tabLayoutPaddingEnd="16dp"
-            app:tabGravity="fill"
-            app:tabMode="fixed"
             app:layout_constraintBottom_toBottomOf="parent"
             app:runTransitionDrawable="@{viewModel.bottomNavigationBgTransition}"
+            app:tabGravity="fill"
+            app:tabIndicatorHeight="0dp"
+            app:tabLayoutPaddingEnd="16dp"
+            app:tabLayoutPaddingStart="16dp"
+            app:tabMode="fixed"
             app:toggleRadiusAnimation="@{!viewModel.bottomNavigationBgTransition}"
             app:toggleRadiusAnimationValue="@{25}"
             />
-
-<!--        <dev.hsco.oops.presentation.util.custom_view.FixedTabLayout-->
-<!--            android:id="@+id/tab_layout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="60dp"-->
-<!--            android:clipToPadding="false"-->
-<!--            android:paddingStart="16dp"-->
-<!--            android:paddingEnd="16dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
