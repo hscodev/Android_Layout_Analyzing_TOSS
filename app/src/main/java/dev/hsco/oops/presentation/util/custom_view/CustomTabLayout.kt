@@ -41,7 +41,6 @@ class CustomTabLayout @JvmOverloads constructor(
                         layoutParams?.marginStart = 0
                         layoutParams?.marginEnd = 0
                     }
-                    layoutParams?.also { view.layoutParams = it }
                 }
             }
         }
